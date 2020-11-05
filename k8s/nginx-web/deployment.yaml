@@ -22,7 +22,7 @@ spec:
         cloud.google.com/gke-nodepool: web-pool
       containers:
         - name: "nginx-web"
-          image: eu.gcr.io/gke-tutorial-xxxxxx/nginx-web:latest
+          image: us.gcr.io/akproject-293704/nginx-web:latest
           ports:
             - name: http
               containerPort: 80
