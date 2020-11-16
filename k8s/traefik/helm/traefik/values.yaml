@@ -1,0 +1,38 @@
+# Default values for traefik.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+serviceName: traefik
+serviceAccountName: traefik-serviceaccount
+appName: traefik-web
+appImage: traefik:v2.1.9
+
+nodeSelector: ingress-pool
+
+clusterSize: 1
+
+traefikRoutes:
+ - name: todo-api-http
+   namespace: default
+   spec:
+     entryPoints:
+       - web
+     routes:
+       - match: Host(`api.todos.techdreams.site`)
+         kind: Rule
+         services:
+         - name: todo-service
+           port: 5555
+ - name: todo-api-https
+   namespace: default
+   spec:
+     entryPoints:
+       - websecure
+     routes:
+       - match: Host(`api.todos.techdreams.site`)
+         kind: Rule
+         services:
+           - name: todo-service
+             port: 5555
+     tls:
+       certResolver: letsencrypt

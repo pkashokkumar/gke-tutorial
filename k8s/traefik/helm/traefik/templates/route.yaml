@@ -1,0 +1,10 @@
+{{- range $value := .Values.traefikRoutes  }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ $value.name }}
+  namespace: {{ $value.namespace }}
+spec:
+{{ toYaml $value.spec | indent 2 }} 
+---
+{{- end }}
